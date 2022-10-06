@@ -4,7 +4,7 @@ import Delete from './pantallas/Delete';
 
 function App() {
   return (
-   <ListPrueba/>
+   <List/>
   );
 }
 

@@ -2,19 +2,18 @@ import React, {useState} from 'react'
 
 export default function Form() {
   
+  const [author,setAuthor]=useState("");
   const [name,setName]=useState("");
-  const [team,setTeam]=useState("");
-  const [country,setCountry]=useState("");
-  const [image,setImage]=useState("");
+  const [pages,setPages]=useState("");
   
-  var url='https://api-example-udb.herokuapp.com/api/list';
+  var url='https://api-library-service.herokuapp.com/api/list';
   const [data, setData] = useState([]);//los corchetes son para especificar que la variable "data" va a recibir un objeto
     //constante con hook para capturar los datos de la petición fetch
     fetch(url)
     .then((res)=>res.json()).then((resJson)=>setData(resJson));
     var lastID;
-    data.map((stadium,i) =>{
-      lastID=stadium.id
+    data.map((book,i) =>{
+      lastID=book.id
     }
     );
     
@@ -28,21 +27,18 @@ export default function Form() {
             
           </label>
           <label>
+            Autor:
+            <input type="text" id='id'  onChange={(e) => setAuthor(e.target.value)}/>
+          </label>
+          <label>
             Nombre:
             <input type="text" id='id'  onChange={(e) => setName(e.target.value)}/>
           </label>
           <label>
-            Equipo:
-            <input type="text" id='id'  onChange={(e) => setTeam(e.target.value)}/>
+            Paginas:
+            <input type="text" id='id'  onChange={(e) => setPages(e.target.value)}/>
           </label>
-          <label>
-            País:
-            <input type="text" id='id'  onChange={(e) => setCountry(e.target.value)}/>
-          </label>
-          <label>
-            URL Imagen:
-            <input type="text" id='id'  onChange={(e) => setImage(e.target.value)}/>
-          </label>
+          
         </form>
         <button style={{margin:40}} onClick={()=>{
           fetch(url,{
@@ -53,13 +49,12 @@ export default function Form() {
             body: JSON.stringify(
                 {
                     id: (parseInt(lastID)+1).toString(),
+                    author: author,
                     name: name,
-                    team: team,
-                    country: country,
-                    image: image   
+                    pages: pages
                 }   
             )
-        }).then((res)=>res.json()).then((resJson)=>alert(resJson.message));}}>Añadir estadio</button>    
+        }).then((res)=>res.json()).then((resJson)=>alert(resJson.message));}}>Añadir libro</button>    
         
     </div>
   )
